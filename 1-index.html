@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>jQuery Todo Demo</title>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    </head>
+    <body>
+        <h1>Todo List</h1>
+        <input
+            type="text"
+            id="newTodo"
+            placeholder="New todo"
+        />
+        <button onclick="addTodo()">Add</button>
+        <ul id="todoList"></ul>
+
+        <script>
+            // 页面加载时获取数据
+            $(document).ready(() => {
+                loadTodos();
+            });
+
+            // 加载待办事项
+            function loadTodos() {
+                $.get("http://localhost:3000/todos", todos => {
+                    $("#todoList").empty();
+                    todos.forEach(todo => {
+                        const li = $(`<li>${todo.title} 
+            <input type="checkbox" ${todo.completed ? "checked" : ""} 
+                   onchange="toggleTodo(${todo.id}, this.checked)">
+          </li>`);
+                        $("#todoList").append(li);
+                    });
+                });
+            }
+
+            // 添加待办事项
+            function addTodo() {
+                const title = $("#newTodo").val();
+                $.post("http://localhost:3000/todos", { title }, () => {
+                    $("#newTodo").val("");
+                    loadTodos();
+                });
+            }
+
+            // 切换完成状态
+            function toggleTodo(id, completed) {
+                $.ajax({
+                    url: `http://localhost:3000/todos/${id}`,
+                    method: "PUT",
+                    contentType: "application/json",
+                    data: JSON.stringify({ completed }),
+                    success: loadTodos,
+                });
+            }
+        </script>
+    </body>
+</html>

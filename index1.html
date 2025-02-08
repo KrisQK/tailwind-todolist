@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>todo list</title>
+    <!-- tailwind -->
+    <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+
+    <!-- jquery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  </head>
+  <body class="font-mono">
+    <header class="bg-blue-200 p-4 text-center text-lg font-bold text-red-500">
+      <h1>todo list</h1>
+    </header>
+    <main class="h-164 mt-2">
+      <form id="biao">
+        <div class="mt-2 flex h-16 justify-around bg-red-200 p-2">
+          <input
+            class="basis-1/2 rounded-lg border-2 shadow-lg outline-pink-500"
+            placeholder="输入要加入的事情"
+            id="shuru"
+            type="text"
+          />
+          <button
+            class="basis-1/4 rounded-lg border-2 bg-sky-200 hover:bg-sky-300 hover:shadow-lg"
+            type="submit"
+          >
+            添加
+          </button>
+        </div>
+
+        <!-- 事件 -->
+        <div id="list" class="h-148 mt-2 bg-yellow-200"></div>
+        <script>
+          $("#list").fadeIn("slow");
+        </script>
+      </form>
+      <script>
+        $(document).ready(() => {
+          $("#biao").on("submit", (event) => {
+            event.preventDefault();
+
+            let shuru = $("#shuru").val().trim();
+            if (shuru === "") {
+              alert("输入内容!");
+              return;
+            }
+            <!-- 生成任务 html -->
+            let shuruItem = `<li
+      class="flex items-center justify-between rounded-md bg-white p-2 shadow-md"
+    >
+      <span>${shuru}</span>
+      <button type="button"
+        class="remove-task rouned-md bg-red-500 px-2 py-1 text-white hover:bg-red-600"
+      >
+        删除
+      </button>
+    </li>`;
+            $("#list").append(shuruItem);
+            $("#shuru").val("");
+          });
+          $("#list").on("click", ".remove-task", function () {
+            $(this)
+              .parent()
+              .fadeOut(300, () => {
+                $(this).remove();
+              });
+          });
+        });
+      </script>
+    </main>
+
+    <footer class="mt-4 h-12 bg-blue-500 text-center font-bold text-red-200">
+      <p id="jiao">all rights reserved</p>
+    </footer>
+    <script>
+      $(document).ready(function () {
+        $("#jiao").on("click", () => {
+          $("#jiao").text("我被点了");
+        });
+      });
+    </script>
+  </body>
+</html>

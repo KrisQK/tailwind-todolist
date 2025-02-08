@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Todo List</title>
+    <!-- Tailwind -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  </head>
+  <body
+    class="flex min-h-screen flex-col items-center justify-center bg-gray-100 font-mono"
+  >
+    <header class="w-full bg-blue-200 p-4 text-center">
+      <h1 class="text-2xl font-bold text-gray-700">Todo List</h1>
+    </header>
+
+    <main class="mt-6 w-full max-w-md rounded-lg bg-white p-4 shadow-md">
+      <!-- 输入框 -->
+      <form id="task-form" class="flex space-x-2">
+        <input
+          type="text"
+          id="task-input"
+          class="flex-1 rounded-md border border-gray-300 p-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+          placeholder="输入任务..."
+        />
+        <button
+          type="submit"
+          class="rounded-md bg-blue-500 px-4 py-2 text-white hover:bg-blue-600"
+        >
+          添加
+        </button>
+      </form>
+
+      <!-- 任务列表 -->
+      <ul id="task-list" class="mt-4 space-y-2"></ul>
+    </main>
+
+    <footer class="mt-6 w-full bg-blue-200 p-4 text-center">
+      <p>All rights reserved</p>
+    </footer>
+
+    <script>
+      const API_URL = "http://localhost:3000/tasks";
+
+      $(document).ready(() => {
+        // 加载任务列表
+        function loadTasks() {
+          $.get(API_URL, (tasks) => {
+            $("#task-list").empty();
+            tasks.forEach((task) => {
+              $("#task-list").append(`
+                <li data-id="${task.id}" class="flex items-center justify-between p-2 bg-white shadow-md rounded-md">
+                  <span>${task.text}</span>
+                  <button class="remove-task bg-red-500 text-white px-2 py-1 rounded-md hover:bg-red-600">
+                    删除
+                  </button>
+                </li>
+              `);
+            });
+          });
+        }
+
+        // 提交新任务
+        $("#task-form").submit((event) => {
+          event.preventDefault();
+          let taskText = $("#task-input").val().trim();
+          if (taskText === "") {
+            alert("请输入任务内容！");
+            return;
+          }
+
+          $.ajax({
+            url: API_URL,
+            type: "POST",
+            contentType: "application/json", // 重要！确保发送 JSON
+            data: JSON.stringify({ text: taskText }),
+            success: (newTask) => {
+              $("#task-list").append(`
+                <li data-id="${newTask.id}" class="flex items-center justify-between p-2 bg-white shadow-md rounded-md">
+                  <span>${newTask.text}</span>
+                  <button class="remove-task bg-red-500 text-white px-2 py-1 rounded-md hover:bg-red-600">
+                    删除
+                  </button>
+                </li>
+              `);
+              $("#task-input").val(""); // 清空输入框
+            },
+            error: () => alert("添加任务失败！"),
+          });
+        });
+
+        // 删除任务
+        $("#task-list").on("click", ".remove-task", function () {
+          let taskId = $(this).parent().data("id");
+
+          $.ajax({
+            url: `${API_URL}/${taskId}`,
+            type: "DELETE",
+            success: () => {
+              $(this)
+                .parent()
+                .fadeOut(300, function () {
+                  $(this).remove();
+                });
+            },
+            error: () => alert("删除任务失败！"),
+          });
+        });
+
+        // 初始加载任务
+        loadTasks();
+      });
+    </script>
+  </body>
+</html>

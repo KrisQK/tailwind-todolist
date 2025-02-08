@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="UTF-8" />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0"
+        />
+        <title>Bootstrap with Webpack/Vite</title>
+      <script type="module" crossorigin src="/assets/index-Bf8V3DzC.js"></script>
+      <link rel="stylesheet" crossorigin href="/assets/index-DnVUw_vK.css">
+    </head>
+    <body>
+        <h1 class="text-primary">Hello, Bootstrap!</h1>
+        <!-- Button trigger modal -->
+        <button
+            type="button"
+            class="btn btn-primary"
+            data-bs-toggle="modal"
+            data-bs-target="#exampleModal"
+        >
+            Launch demo modal
+        </button>
+
+        <!-- Modal -->
+        <div
+            class="modal fade"
+            id="exampleModal"
+            tabindex="-1"
+            aria-labelledby="exampleModalLabel"
+            aria-hidden="true"
+        >
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1
+                            class="modal-title fs-5"
+                            id="exampleModalLabel"
+                        >
+                            Modal title
+                        </h1>
+                        <button
+                            type="button"
+                            class="btn-close"
+                            data-bs-dismiss="modal"
+                            aria-label="Close"
+                        ></button>
+                    </div>
+                    <div class="modal-body">...</div>
+                    <div class="modal-footer">
+                        <button
+                            type="button"
+                            class="btn btn-secondary"
+                            data-bs-dismiss="modal"
+                        >
+                            Close
+                        </button>
+                        <button
+                            type="button"
+                            class="btn btn-primary"
+                        >
+                            Save changes
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <label
+            for="inputPassword5"
+            class="form-label"
+            >Password</label
+        >
+        <input
+            type="password"
+            id="inputPassword5"
+            class="form-control"
+            aria-describedby="passwordHelpBlock"
+        />
+        <div
+            id="passwordHelpBlock"
+            class="form-text"
+        >
+            Your password must be 8-20 characters long, contain letters and
+            numbers, and must not contain spaces, special characters, or emoji.
+        </div>
+        <button
+            type="button"
+            class="btn btn-primary"
+            id="liveToastBtn"
+        >
+            Show live toast
+        </button>
+
+        <div
+            class="toast"
+            role="alert"
+            aria-live="assertive"
+            aria-atomic="true"
+        >
+            <div class="toast-header">
+                <img
+                    src="..."
+                    class="rounded me-2"
+                    alt="..."
+                />
+                <strong class="me-auto">Bootstrap</strong>
+                <small>11 mins ago</small>
+                <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="toast"
+                    aria-label="Close"
+                ></button>
+            </div>
+            <div class="toast-body">Hello, world! This is a toast message.</div>
+        </div>
+
+        <div class="input-group mb-3">
+            <button
+                type="button"
+                class="btn btn-outline-secondary"
+            >
+                Action
+            </button>
+            <button
+                type="button"
+                class="btn btn-outline-secondary dropdown-toggle dropdown-toggle-split"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+            >
+                <span class="visually-hidden">Toggle Dropdown</span>
+            </button>
+            <ul class="dropdown-menu">
+                <li>
+                    <a
+                        class="dropdown-item"
+                        href="#"
+                        >Action</a
+                    >
+                </li>
+                <li>
+                    <a
+                        class="dropdown-item"
+                        href="#"
+                        >Another action</a
+                    >
+                </li>
+                <li>
+                    <a
+                        class="dropdown-item"
+                        href="#"
+                        >Something else here</a
+                    >
+                </li>
+                <li><hr class="dropdown-divider" /></li>
+                <li>
+                    <a
+                        class="dropdown-item"
+                        href="#"
+                        >Separated link</a
+                    >
+                </li>
+            </ul>
+            <input
+                type="text"
+                class="form-control"
+                aria-label="Text input with segmented dropdown button"
+            />
+        </div>
+        <!-- bootsrap-js -->
+    </body>
+</html>
